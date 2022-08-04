@@ -19,4 +19,8 @@ public class TodoListService {
     public TodoItem addTodoItem(TodoItem todoItem){
         return todoListRepository.save(todoItem);
     }
+
+    public void deleteTodoItem(Integer id) {
+        todoListRepository.deleteById(id);
+    }
 }

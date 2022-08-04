@@ -31,4 +31,9 @@ public class TodoListController {
         return todoListService.addTodoItem(todoItemMapper.toEntity(todoItemRequest));
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTodoItem(@PathVariable Integer id){
+        todoListService.deleteTodoItem(id);
+    }
 }
