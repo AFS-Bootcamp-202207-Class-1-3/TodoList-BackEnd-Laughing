@@ -18,6 +18,7 @@ public class TodoListService {
     }
 
     public TodoItem addTodoItem(TodoItem todoItem){
+        todoItem.setDone(false);
         return todoListRepository.save(todoItem);
     }
 
