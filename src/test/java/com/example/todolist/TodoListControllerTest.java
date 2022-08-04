@@ -54,4 +54,10 @@ public class TodoListControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("nihao"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.done").value(false));
     }
+    @Test
+    public void should_return_not_content_when_delete_todo_given_id() throws Exception {
+        TodoItem todoItem = todoListRepository.save(new TodoItem(0, "dsadjkls", false));
+        mockMvc.perform(MockMvcRequestBuilders.delete("/Todos/{id}",todoItem.getId()))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
 }
