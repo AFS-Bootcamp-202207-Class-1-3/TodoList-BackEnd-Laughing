@@ -49,15 +49,30 @@ public class TodoListControllerTest {
         todoItemRequest.setText("nihao");
         ObjectMapper objectMapper = new ObjectMapper();
         String content = objectMapper.writeValueAsString(todoItemRequest);
-        mockMvc.perform(MockMvcRequestBuilders.post("/Todos").contentType(MediaType.APPLICATION_JSON).content(content))
+        mockMvc.perform(MockMvcRequestBuilders.post("/Todos")
+                        .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("nihao"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.done").value(false));
     }
+
     @Test
     public void should_return_not_content_when_delete_todo_given_id() throws Exception {
         TodoItem todoItem = todoListRepository.save(new TodoItem(0, "dsadjkls", false));
-        mockMvc.perform(MockMvcRequestBuilders.delete("/Todos/{id}",todoItem.getId()))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/Todos/{id}", todoItem.getId()))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    public void should_return_new_todo_when_update_todo_given_todo() throws Exception {
+        TodoItem todoItem = todoListRepository.save(new TodoItem(0, "dsadjkls", false));
+        TodoItemRequest todoItemRequest = new TodoItemRequest();
+        todoItemRequest.setText("nihao");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String content = objectMapper.writeValueAsString(todoItemRequest);
+        mockMvc.perform(MockMvcRequestBuilders.put("/Todos/{id}", todoItem.getId())
+                        .contentType(MediaType.APPLICATION_JSON).content(content))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("nihao"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.done").value(false));
     }
 }
