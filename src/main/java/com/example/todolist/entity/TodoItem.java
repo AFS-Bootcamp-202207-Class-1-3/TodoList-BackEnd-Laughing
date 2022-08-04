@@ -9,12 +9,12 @@ public class TodoItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String text;
-    private boolean done;
+    private Boolean done;
 
     public TodoItem() {
     }
 
-    public TodoItem(int id, String text, boolean done) {
+    public TodoItem(int id, String text, Boolean done) {
         this.id = id;
         this.text = text;
         this.done = done;
@@ -36,11 +36,20 @@ public class TodoItem {
         this.text = text;
     }
 
-    public boolean isDone() {
-        return done;
+    public void setDone(Boolean done) {
+        this.done = done;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void merge(TodoItem newItem){
+        if(newItem.getDone()!=null){
+            this.done=newItem.getDone();
+        }
+        if(newItem.getText()!=null) {
+            this.text = newItem.getText();
+        }
+    }
+
+    public Boolean getDone() {
+        return done;
     }
 }

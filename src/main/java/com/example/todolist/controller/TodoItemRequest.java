@@ -2,7 +2,7 @@ package com.example.todolist.controller;
 
 public class TodoItemRequest {
     private String text;
-    private boolean done=false;
+    private Boolean done;
 
     public TodoItemRequest() {
     }
@@ -15,11 +15,11 @@ public class TodoItemRequest {
         this.text = text;
     }
 
-    public boolean isDone() {
+    public Boolean getDone() {
         return done;
     }
 
-    public void setDone(boolean done) {
+    public void setDone(Boolean done) {
         this.done = done;
     }
 }
